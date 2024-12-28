@@ -32,28 +32,25 @@ kotlin {
             implementation(project(":core"))
 
             implementation(libs.kotlinx.coroutines.core)
-            implementation(libs.kotlinx.coroutines.test)
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.kermit)
             implementation(libs.ktor.client.core)
-            implementation(libs.ktor.client.content.negotiation)
-            implementation(libs.ktor.client.serialization)
-            implementation(libs.ktor.client.logging)
             implementation(libs.kstore)
+            implementation(libs.kstore.file)
+            implementation(libs.jwt.kt)
+            implementation(libs.kotlinx.datetime)
         }
 
         androidMain.dependencies {
-            implementation(libs.kotlinx.coroutines.android)
-            implementation(libs.ktor.client.okhttp)
+
         }
 
         jvmMain.dependencies {
-            implementation(libs.kotlinx.coroutines.swing)
-            implementation(libs.ktor.client.okhttp)
+
         }
 
         iosMain.dependencies {
-            implementation(libs.ktor.client.darwin)
+
         }
 
     }
