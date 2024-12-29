@@ -10,9 +10,9 @@ import ru.shelldev.auth_module.KSerializable
 import ru.shelldev.auth_module.jwt.authClient.data.RefreshTokenData
 import ru.shelldev.auth_module.jwt.authClient.data.TokensResponse
 
-class KtorAuthClient(
+internal class KtorAuthClient(
     private val client: HttpClient,
-    private val config: ConfigAuthClient
+    private val config: AuthClientConfig
 ) {
 
     suspend fun <LoginData: KSerializable<LoginData>>login(data: LoginData): TokensResponse {

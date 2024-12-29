@@ -10,6 +10,7 @@ kermit = "2.0.5"
 ktor = "3.0.1"
 kstore = "0.9.1"
 jetbrains-kotlin-jvm = "2.0.20"
+play-services-auth = "21.3.0"
 
 [libraries]
 
@@ -32,6 +33,7 @@ ktor-client-curl = { module = "io.ktor:ktor-client-curl", version.ref = "ktor" }
 ktor-client-winhttp = { module = "io.ktor:ktor-client-winhttp", version.ref = "ktor" }
 kstore = { module = "io.github.xxfast:kstore", version.ref = "kstore" }
 kstore-file = { module = "io.github.xxfast:kstore-file", version.ref = "kstore" }
+play-services-auth = { group = "com.google.android.gms", name = "play-services-auth", version.ref = "play-services-auth" }
 
 [plugins]
 

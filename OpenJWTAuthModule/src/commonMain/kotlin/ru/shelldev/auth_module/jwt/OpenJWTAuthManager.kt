@@ -14,7 +14,7 @@ import ru.shelldev.auth_module.jwt.tokensStore.TokensData
 import ru.shelldev.auth_module.jwt.tokensStore.TokensStore
 import kotlin.coroutines.cancellation.CancellationException
 
-class JWTAuthManager(
+internal class OpenJWTAuthManager(
     private val authClient: KtorAuthClient,
     private val tokensStore: TokensStore,
     private val ktorClient: HttpClient

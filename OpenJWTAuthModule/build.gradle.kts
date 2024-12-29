@@ -70,3 +70,6 @@ android {
         minSdk = 21
     }
 }
+dependencies {
+    implementation(libs.play.services.auth)
+}

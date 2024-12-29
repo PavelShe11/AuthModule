@@ -18,7 +18,7 @@ import ru.shelldev.auth_module.jwt.tokensStore.TokensData
 import ru.shelldev.auth_module.jwt.tokensStore.TokensStore
 import kotlin.coroutines.cancellation.CancellationException
 
-class TokensManager private constructor(
+internal class TokensManager(
     private val store: TokensStore,
     private val client: KtorAuthClient
 ) {
@@ -74,17 +74,6 @@ class TokensManager private constructor(
             }
 
             store.save(TokensData(newTokens.accessToken, newTokens.refreshToken, expired))
-        }
-    }
-
-    companion object {
-        private var instance: TokensManager? = null
-
-        fun getInstance(store: TokensStore, client: KtorAuthClient): TokensManager {
-            if (instance == null) {
-                instance = TokensManager(store, client)
-            }
-            return instance!!
         }
     }
 

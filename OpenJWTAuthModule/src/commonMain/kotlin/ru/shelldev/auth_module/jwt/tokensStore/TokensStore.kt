@@ -1,16 +1,15 @@
 package ru.shelldev.auth_module.jwt.tokensStore
 
 import io.github.xxfast.kstore.KStore
-import io.github.xxfast.kstore.file.storeOf
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.withContext
 
-class TokensStore(
-    private val config: ConfigTokenStore
+internal class TokensStore(
+    private val config: TokenStoreConfig
 ) {
 
-    private val store: KStore<TokensData> = storeOf(file = config.tokenStorePath)
+    private val store: KStore<TokensData> = config.factoryTokenStore.create()
 
     suspend fun save(data: TokensData) = withContext(Dispatchers.IO){
         store.set(data)
