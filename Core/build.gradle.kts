@@ -67,14 +67,22 @@ android {
 
 tasks.register("prepareJreleaserOutputDir") {
     doLast {
-        val outputDir = layout.buildDirectory.file("jreleaser").get().asFile
-        if (!outputDir.exists()) {
-            outputDir.mkdirs()
-        }
+        createDirectory("jreleaser")
+        createDirectory("staging-deploy")
     }
 }
 
-tasks.named("jreleaserConfig").configure {
+fun createDirectory(name: String) {
+    val outputDir = layout.buildDirectory.file(name).get().asFile
+    if (!outputDir.exists()) {
+        outputDir.mkdirs()
+    }
+}
+
+tasks.named("jreleaserConfig") {
+    dependsOn("prepareJreleaserOutputDir")
+}
+tasks.named("jreleaserFullRelease") {
     dependsOn("prepareJreleaserOutputDir")
 }
 
@@ -84,7 +92,8 @@ jreleaser {
         inceptionYear = "2025"
         author("@PavelShe11")
         license = "http://www.apache.org/licenses/LICENSE-2.0.txt"
-        version.set("1.0.0")
+        version = "1.0.0"
+        description = "api через которое можно получить доступ к механизму аутентификации и авторизации"
     }
 
     signing {
