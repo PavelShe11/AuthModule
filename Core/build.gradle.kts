@@ -1,3 +1,6 @@
+
+import org.jreleaser.model.Active
+
 plugins {
     alias(libs.plugins.multiplatform)
     alias(libs.plugins.android.library)
@@ -5,7 +8,7 @@ plugins {
     alias(libs.plugins.jreleaser)
 }
 
-group = "ru.shelldev.auth_module.core"
+group = "ru.pavelshe11.auth_module"
 version = "1.0"
 
 kotlin {
@@ -76,16 +79,48 @@ tasks.named("jreleaserConfig").configure {
 }
 
 jreleaser {
-    dryrun.set(true)
+    gitRootSearch.set(true)
     project {
-        name.set("AuthModule")
+        inceptionYear = "2025"
+        author("@PavelShe11")
+        license = "http://www.apache.org/licenses/LICENSE-2.0.txt"
         version.set("1.0.0")
-        description.set("OAuth 2.0 Module for secure authentication")
     }
+
+    signing {
+        active = Active.ALWAYS
+        armored = true
+        verify = true
+    }
+
     release {
         github {
-            skipRelease.set(true)
-            skipTag.set(true)
+            skipRelease = true
+            skipTag = true
+            sign = true
+            branch = "main"
+            branchPush = "main"
+            overwrite = true
+        }
+    }
+
+    deploy {
+        maven {
+            mavenCentral.create("sonatype") {
+                active = Active.ALWAYS
+                url = "https://central.sonatype.com/api/v1/publisher"
+                stagingRepository(layout.buildDirectory.dir("staging-deploy").get().toString())
+                setAuthorization("Basic")
+
+                applyMavenCentralRules = false
+                sign = true
+                checksums = true
+                sourceJar = true
+                javadocJar = true
+
+                retryDelay = 60
+            }
+
         }
     }
 }

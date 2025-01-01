@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.kotlinx.serialization)
 }
 
-group = "ru.shelldev.auth_module.jwt"
+group = "ru.pavelshe11.auth_module"
 version = "1.0"
 
 kotlin {
