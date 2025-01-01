@@ -1,14 +1,10 @@
 //Publishing your Kotlin Multiplatform library to Maven Central
 //https://dev.to/kotlin/how-to-build-and-publish-a-kotlin-multiplatform-library-going-public-4a8k
 
-import org.gradle.api.publish.maven.MavenPublication
-import org.gradle.api.tasks.bundling.Jar
-import org.gradle.kotlin.dsl.`maven-publish`
-import org.gradle.kotlin.dsl.signing
-import java.util.*
+import java.util.Properties
 
 plugins {
-    id("maven-publish")
+    `maven-publish`
     id("signing")
 }
 
@@ -16,6 +12,7 @@ plugins {
 ext["signing.keyId"] = null
 ext["signing.password"] = null
 ext["signing.secretKeyRingFile"] = null
+
 ext["ossrhUsername"] = null
 ext["ossrhPassword"] = null
 
@@ -31,6 +28,7 @@ if (secretPropsFile.exists()) {
     ext["signing.keyId"] = System.getenv("SIGNING_KEY_ID")
     ext["signing.password"] = System.getenv("SIGNING_PASSWORD")
     ext["signing.secretKeyRingFile"] = System.getenv("SIGNING_SECRET_KEY_RING_FILE")
+
     ext["ossrhUsername"] = System.getenv("OSSRH_USERNAME")
     ext["ossrhPassword"] = System.getenv("OSSRH_PASSWORD")
 }
@@ -62,25 +60,25 @@ publishing {
         // Provide artifacts information requited by Maven Central
         pom {
             name.set("AuthModule")
-            description.set("Kotlin Multiplatform library")
-            //url.set("") todo
+            description.set("Kotlin Multiplatform authorization library (android, iOS, desktop)")
+            url.set("https://github.com/pavelShe11/AuthModule")
 
             licenses {
                 license {
-                    name.set("MIT")
-                    url.set("https://opensource.org/licenses/MIT")
+                    name.set("Apache 2.0")
+                    url.set("https://opensource.org/license/apache-2-0")
                 }
             }
             developers {
                 developer {
-                    //id.set("") todo
-                    //name.set("") todo
-                    //email.set("") todo
+                    id.set("pavelshell")
+                    name.set("Pavel")
+                    email.set("technicianpavelshell@gmail.com")
                 }
             }
-            scm {
-                //url.set("") todo
-            }
+//            scm {
+//                //url.set("") todo
+//            }
         }
     }
 }

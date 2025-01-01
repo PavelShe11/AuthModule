@@ -28,7 +28,9 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
-includeBuild("convention-plugins")
 
-include(":core")
-include(":OpenJWTAuthModule")
+//includeBuild("convention-plugins")
+//includeBuild("convention-plugins-jreleaser")
+
+include(":Core")
+include(":OAuth_2_0")

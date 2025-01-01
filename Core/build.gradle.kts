@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.multiplatform)
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlinx.serialization)
-    id("convention.publication")
+    alias(libs.plugins.jreleaser)
 }
 
 group = "ru.shelldev.auth_module.core"
@@ -58,6 +58,34 @@ android {
     compileSdk = 35
 
     defaultConfig {
-        minSdk = 21
+        minSdk = 26
+    }
+}
+
+tasks.register("prepareJreleaserOutputDir") {
+    doLast {
+        val outputDir = layout.buildDirectory.file("jreleaser").get().asFile
+        if (!outputDir.exists()) {
+            outputDir.mkdirs()
+        }
+    }
+}
+
+tasks.named("jreleaserConfig").configure {
+    dependsOn("prepareJreleaserOutputDir")
+}
+
+jreleaser {
+    dryrun.set(true)
+    project {
+        name.set("AuthModule")
+        version.set("1.0.0")
+        description.set("OAuth 2.0 Module for secure authentication")
+    }
+    release {
+        github {
+            skipRelease.set(true)
+            skipTag.set(true)
+        }
     }
 }
