@@ -2,10 +2,11 @@ plugins {
     alias(libs.plugins.multiplatform)
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlinx.serialization)
+    id("convention.publication")
 }
 
-group = "ru.pavelshe11.auth_module"
-version = "1.0"
+group = property("group") as String
+version = property("version") as String
 
 kotlin {
     jvmToolchain(11)
@@ -21,7 +22,7 @@ kotlin {
         iosSimulatorArm64()
     ).forEach {
         it.binaries.framework {
-            baseName = "core"
+            baseName = "oauth_2_0"
             isStatic = true
         }
     }
@@ -62,11 +63,10 @@ kotlin {
 }
 
 android {
-    namespace = "ru.shelldev.auth_module.core"
+    namespace = property("group") as String
     compileSdk = 35
 
     defaultConfig {
         minSdk = 26
     }
 }
-

@@ -18,7 +18,7 @@ junit-version = "1.2.1"
 espresso-core = "3.6.1"
 appcompat = "1.7.0"
 material = "1.12.0"
-jreleaser = "1.16.0"
+vanniktech-maven-publish = "0.30.0"
 
 [libraries]
 
@@ -55,4 +55,3 @@ android-library = { id = "com.android.library", version.ref = "agp" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrains-kotlin-jvm" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin-version" }
-jreleaser = { id = "org.jreleaser", version.ref = "jreleaser" }

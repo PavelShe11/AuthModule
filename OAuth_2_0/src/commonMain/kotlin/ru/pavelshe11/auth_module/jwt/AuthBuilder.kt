@@ -2,7 +2,7 @@ package ru.pavelshe11.auth_module.jwt
 
 import ru.pavelshe11.auth_module.jwt.tokensStore.FactoryTokenStore
 
-internal class AuthBuilder {
+class AuthBuilder {
     var loginPath = "/login"
     var refreshTokenPath = "/refreshToken"
     var factoryTokenStore: FactoryTokenStore? = null

@@ -3,5 +3,6 @@ plugins {
     alias(libs.plugins.android.library) apply false
     alias(libs.plugins.kotlinx.serialization) apply false
     alias(libs.plugins.jetbrains.kotlin.jvm) apply false
-    alias(libs.plugins.jreleaser) apply false
 }
+
+description = "Механизм аутентификации и авторизации"

@@ -29,8 +29,7 @@ dependencyResolutionManagement {
     }
 }
 
-//includeBuild("convention-plugins")
-//includeBuild("convention-plugins-jreleaser")
+includeBuild("convention-plugins")
 
 include(":Core")
 include(":OAuth_2_0")
