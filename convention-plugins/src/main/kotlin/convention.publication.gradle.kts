@@ -1,9 +1,5 @@
 import com.vanniktech.maven.publish.SonatypeHost
 
-//Publishing your Kotlin Multiplatform library to Maven Central
-//https://dev.to/kotlin/how-to-build-and-publish-a-kotlin-multiplatform-library-going-public-4a8k
-
-
 plugins {
     `maven-publish`
     signing
@@ -43,11 +39,6 @@ publishing.publications
 publishing {
     repositories {
         mavenLocal()
-
-        maven {
-            name = "BuildDir"
-            url = uri(rootProject.layout.buildDirectory.dir("maven-repo"))
-        }
 
         maven {
             name = "GitHubPackages"
