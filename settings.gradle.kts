@@ -31,5 +31,5 @@ dependencyResolutionManagement {
 
 includeBuild("convention-plugins")
 
-include(":Core")
-include(":OAuth_2_0")
+include(":core")
+include(":oauth_2_0")
