@@ -19,8 +19,10 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
 
-      - name: Build and publish to Maven Central
-        run: ./gradlew publishToMavenCentral --no-configuration-cache
+      - name: Release with gradle
+        uses: gradle/gradle-build-action@3
+        with:
+          arguments: --no-daemon -i --no-configuration-cache publishToMavenCentral
         env:
           ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.ORG_GRADLE_PROJECT_mavenCentralUsername }}
           ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.ORG_GRADLE_PROJECT_mavenCentralPassword }}
