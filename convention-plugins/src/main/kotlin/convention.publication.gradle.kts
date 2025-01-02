@@ -46,8 +46,8 @@ publishing {
             url = uri("https://maven.pkg.github.com/PavelShe11/AuthModule")
 
             credentials {
-                username = getVarSecretFromLocalPropOrEnv("GITHUB_ACTOR")
-                password = getVarSecretFromLocalPropOrEnv("GITHUB_TOKEN")
+                username = getVarSecretFromLocalPropOrEnv("AC_GITHUB_ACTOR")
+                password = getVarSecretFromLocalPropOrEnv("AC_GITHUB_TOKEN")
             }
         }
     }
