@@ -64,9 +64,9 @@ kotlin {
 
 android {
     namespace = property("group") as String
-    compileSdk = 35
+    compileSdk = property("android.compileSdk").toString().toInt()
 
     defaultConfig {
-        minSdk = 26
+        minSdk = property("android.minSdk").toString().toInt()
     }
 }
