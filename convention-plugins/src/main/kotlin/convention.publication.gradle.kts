@@ -1,4 +1,5 @@
 import com.vanniktech.maven.publish.SonatypeHost
+import java.util.*
 
 plugins {
     `maven-publish`
@@ -45,15 +46,15 @@ publishing {
             url = uri("https://maven.pkg.github.com/PavelShe11/AuthModule")
 
             credentials {
-                username = getVarFromPropOrEnv("GITHUB_ACTOR")
-                password = getVarFromPropOrEnv("GITHUB_TOKEN")
+                username = getVarSecretFromLocalPropOrEnv("GITHUB_ACTOR")
+                password = getVarSecretFromLocalPropOrEnv("GITHUB_TOKEN")
             }
         }
     }
 }
 
 signing {
-    if (getVarFromPropOrEnv("signing.keyId") != null) {
+    if (getVarSecretFromLocalPropOrEnv("signing.keyId") != null) {
         sign(publishing.publications)
     }
 }
@@ -68,6 +69,16 @@ mavenPublishing {
     signAllPublications()
 }
 
-fun getVarFromPropOrEnv(name: String): String? {
-    return properties[name]?.toString() ?: System.getenv(name)
+fun getVarSecretFromLocalPropOrEnv(name: String): String? {
+    val secretPropsFile = project.rootProject.file("local.properties")
+    var result: String? = null
+    if (secretPropsFile.exists()) {
+        result = secretPropsFile.reader().use {
+            Properties().apply { load(it) }
+        }.getOrDefault(name, null)?.toString()
+    }
+
+    if (result == null) result = System.getenv(name) ?: System.getenv(name)
+
+    return result
 }
