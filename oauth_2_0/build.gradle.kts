@@ -6,7 +6,6 @@ plugins {
 }
 
 group = property("group") as String
-version = property("version") as String
 
 kotlin {
     jvmToolchain(11)

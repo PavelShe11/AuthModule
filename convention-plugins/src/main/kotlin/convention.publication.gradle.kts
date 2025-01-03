@@ -13,6 +13,7 @@ publishing.publications
         pom {
             description = "Механизм аутентификации и авторизации"
             url = "https://github.com/PavelShe11/AuthModule"
+            version = getProjectVersion()
 
             licenses {
                 license {
@@ -82,3 +83,6 @@ fun getVarSecretFromLocalPropOrEnv(name: String): String? {
 
     return result
 }
+
+fun getProjectVersion() =
+    System.getenv("PROJECT_VERSION") ?: property("version")?.toString() ?: "0.1"

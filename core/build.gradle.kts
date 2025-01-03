@@ -8,7 +8,6 @@ plugins {
 }
 
 group = property("group") as String
-version = property("version").toString()
 
 kotlin {
     jvmToolchain(11)
