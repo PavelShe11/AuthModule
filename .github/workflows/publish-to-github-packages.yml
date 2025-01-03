@@ -16,7 +16,7 @@ jobs:
       - name: Extract version from tag
         id: extract_version
         run: |
-          VERSION=$(echo "${GITHUB_REF##*/}" | sed 's/-github_pgk$//')
+          VERSION=$(echo "${GITHUB_REF##*/}" | sed 's/-github_pkg$//')
           echo "VERSION=${VERSION}" >> $GITHUB_ENV
 
       - name: Set up JDK 21
