@@ -3,7 +3,7 @@ name: Build and Publish to GitHubPackages
 on:
   push:
     tags:
-      - '**-github_pgk'
+      - '**-github_pkg'
 
 jobs:
   build-and-publish:
