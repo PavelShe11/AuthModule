@@ -1,4 +1,7 @@
 [versions]
+android-compileSdk = "34"
+android-minSdk = "26"
+android-targetSdk = "34"
 
 jwt-kt = "1.0.3"
 kotlin = "2.1.0"
@@ -19,6 +22,9 @@ espresso-core = "3.6.1"
 appcompat = "1.7.0"
 material = "1.12.0"
 vanniktech-maven-publish = "0.30.0"
+compose-multiplatform = "1.7.0"
+androidx-activityCompose = "1.9.3"
+androidx-lifecycle = "2.8.4"
 
 [libraries]
 
@@ -31,6 +37,9 @@ kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
+androidx-lifecycle-viewmodel = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-viewmodel", version.ref = "androidx-lifecycle" }
+androidx-lifecycle-runtime-compose = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
 ktor-client-content-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
 ktor-client-serialization = { module = "io.ktor:ktor-client-serialization", version.ref = "ktor" }
 ktor-client-logging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
@@ -50,8 +59,10 @@ material = { group = "com.google.android.material", name = "material", version.r
 
 [plugins]
 
-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
+compose-multiplatform = { id = "org.jetbrains.compose", version.ref = "compose-multiplatform" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrains-kotlin-jvm" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin-version" }

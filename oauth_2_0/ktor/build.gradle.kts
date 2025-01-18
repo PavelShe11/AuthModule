@@ -5,13 +5,12 @@ plugins {
     id("convention.publication")
 }
 
-group = property("group") as String
+group = property("group").toString() + ".ktor"
 
 kotlin {
     jvmToolchain(11)
     androidTarget {
         publishLibraryVariants("release")
-        withSourcesJar(publish = true)
     }
 
     jvm()
@@ -22,8 +21,17 @@ kotlin {
         iosSimulatorArm64()
     ).forEach {
         it.binaries.framework {
-            baseName = "core"
+            baseName = "oauth_2_0"
             isStatic = true
+        }
+    }
+
+    sourceSets {
+        commonMain.dependencies {
+            api(project(":oauth_2_0:core"))
+
+            implementation(libs.kotlinx.serialization.json)
+            implementation(libs.ktor.client.core)
         }
     }
 
@@ -35,7 +43,7 @@ kotlin {
 }
 
 android {
-    namespace = property("group") as String
+    namespace = property("group").toString() + ".ktor"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {

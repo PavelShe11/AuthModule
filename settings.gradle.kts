@@ -14,6 +14,9 @@ pluginManagement {
         mavenCentral()
     }
 }
+plugins {
+    id("org.gradle.toolchains.foojay-resolver-convention") version "0.8.0"
+}
 
 dependencyResolutionManagement {
     repositories {
@@ -32,4 +35,7 @@ dependencyResolutionManagement {
 includeBuild("convention-plugins")
 
 include(":core")
-include(":oauth_2_0")
+
+include(":oauth_2_0:core")
+include(":oauth_2_0:impl")
+include(":oauth_2_0:ktor")
