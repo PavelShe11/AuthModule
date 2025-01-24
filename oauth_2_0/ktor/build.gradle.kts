@@ -51,6 +51,3 @@ android {
         targetSdk = libs.versions.android.targetSdk.get().toInt()
     }
 }
-dependencies {
-    implementation("io.ktor:ktor-client-okhttp-jvm:3.0.1")
-}

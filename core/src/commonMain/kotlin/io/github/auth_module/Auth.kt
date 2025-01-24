@@ -6,10 +6,11 @@ class Auth<EngineConfig, LoginData, LoginResponse, LogoutResponse, AuthClient: I
 
     fun init(
         authConfigBuilder: AuthConfigBuilder<EngineConfig>.() -> Unit
-    ) {
+    ): Auth<EngineConfig, LoginData, LoginResponse, LogoutResponse, AuthClient> {
         val builder = AuthConfigBuilder<EngineConfig>()
         builder.apply(authConfigBuilder)
         builder.engineConfig.invoke(engine.config)
+        return this
     }
 
     fun getAuthManager(
