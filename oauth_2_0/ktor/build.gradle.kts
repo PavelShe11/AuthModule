@@ -5,7 +5,7 @@ plugins {
     id("convention.publication")
 }
 
-group = property("group").toString() + ".ktor"
+group = property("group_oauth_2_0").toString() + ".ktor"
 
 kotlin {
     jvmToolchain(11)
@@ -43,11 +43,14 @@ kotlin {
 }
 
 android {
-    namespace = property("group").toString() + ".ktor"
+    namespace = property("group_oauth_2_0").toString() + ".ktor"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
     }
+}
+dependencies {
+    implementation("io.ktor:ktor-client-okhttp-jvm:3.0.1")
 }

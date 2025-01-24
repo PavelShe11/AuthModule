@@ -1,10 +1,10 @@
 package io.github.auth_module.impl
 
 import io.github.auth_module.core.ITokensManager
-import io.github.auth_module.core.authClient.IAuthClient
-import io.github.auth_module.core.authClient.data.RefreshTokenData
 import io.github.auth_module.core.exception.AccessTokenException
 import io.github.auth_module.core.exception.RefreshTokenException
+import io.github.auth_module.core.oauth2Client.IRefreshTokenClient
+import io.github.auth_module.core.oauth2Client.data.RefreshTokenData
 import io.github.auth_module.core.tokensStore.TokensData
 import io.github.auth_module.exception.SomethingWentWrongException
 import io.github.auth_module.impl.tokensStore.TokensStore
@@ -18,9 +18,9 @@ import kotlin.coroutines.cancellation.CancellationException
 
 internal class TokensManager(
     private val store: TokensStore,
-    private val client: IAuthClient,
+    private val client: IRefreshTokenClient,
+    private val config: TokensManagerConfig
 ) : ITokensManager {
-
     private val lock = Mutex()
 
     override suspend fun getActualAccessTokenOrNull(): String? = withContext(Dispatchers.Default) {
@@ -98,4 +98,7 @@ internal class TokensManager(
         )
     }
 
+    override fun ignoredPathsForTokenRefresh(): Set<String> {
+        return config.ignoredPathsForTokenRefresh
+    }
 }

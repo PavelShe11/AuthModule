@@ -1,6 +1,6 @@
 package io.github.auth_module.ktor
 
-import io.github.auth_module.core.NetworkRequestCanceller
+import io.github.auth_module.NetworkRequestCanceller
 import io.ktor.client.*
 import kotlinx.coroutines.cancelChildren
 

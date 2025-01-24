@@ -5,7 +5,7 @@ plugins {
     id("convention.publication")
 }
 
-group = property("group").toString() + ".impl"
+group = property("group_oauth_2_0").toString() + ".impl"
 
 kotlin {
     jvmToolchain(11)
@@ -47,7 +47,7 @@ kotlin {
 }
 
 android {
-    namespace = property("group").toString() + ".impl"
+    namespace = property("group_oauth_2_0").toString() + ".impl"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {

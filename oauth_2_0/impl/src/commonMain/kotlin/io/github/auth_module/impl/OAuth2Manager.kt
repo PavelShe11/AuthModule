@@ -1,19 +1,19 @@
 package io.github.auth_module.impl
 
 import io.github.auth_module.AuthManager
-import io.github.auth_module.core.NetworkRequestCanceller
-import io.github.auth_module.core.authClient.IAuthClient
+import io.github.auth_module.NetworkRequestCanceller
+import io.github.auth_module.core.oauth2Client.IOAuth2Client
 import io.github.auth_module.core.tokensStore.TokensData
 import io.github.auth_module.exception.SomethingWentWrongException
 import io.github.auth_module.impl.tokensStore.TokensStore
 
-internal class OAuth2_0Manager(
-    private val authClient: IAuthClient,
+internal class OAuth2Manager<LoginData>(
+    private val authClient: IOAuth2Client<LoginData>,
     private val tokensStore: TokensStore,
     private val networkRequestCanceller: NetworkRequestCanceller
-): AuthManager {
+): AuthManager<LoginData> {
 
-    override suspend fun <LoginData> login(data: LoginData) {
+    override suspend fun login(data: LoginData) {
         val result = authClient.login(data)
 
         if (result.accessToken.isNullOrEmpty() || result.refreshToken.isNullOrEmpty()) {

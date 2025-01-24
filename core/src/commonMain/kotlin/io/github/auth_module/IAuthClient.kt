@@ -5,10 +5,11 @@ import io.github.auth_module.exception.LogoutException
 import io.github.auth_module.exception.SomethingWentWrongException
 import kotlin.coroutines.cancellation.CancellationException
 
-interface AuthManager<LoginData> {
+interface IAuthClient<in LoginData, out LoginResponse, out LogoutResponse> {
+
     @Throws(SomethingWentWrongException::class, LoginException::class, CancellationException::class)
-    suspend fun login(data: LoginData)
+    suspend fun login(data: LoginData): LoginResponse
 
     @Throws(SomethingWentWrongException::class, LogoutException::class, CancellationException::class)
-    suspend fun logout()
+    suspend fun logout(): LogoutResponse
 }

@@ -15,4 +15,6 @@ interface ITokensManager {
         CancellationException::class
     )
     suspend fun refreshToken()
+
+    fun ignoredPathsForTokenRefresh(): Set<String>
 }

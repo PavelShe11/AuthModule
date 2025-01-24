@@ -1,20 +1,14 @@
 package io.github.auth_module.ktor.plugin
 
-import io.github.auth_module.core.Auth
-import io.github.auth_module.ktor.getTokensManager
 import io.ktor.client.plugins.api.*
 import io.ktor.http.*
 
-val TokenRefresherPlugin = createClientPlugin("OAuth2.0 Token Refresher") {
-    val tokensManager = Auth.getTokensManager(client)
-
-    fun ignorePaths(): List<String> {
-        val config = Auth.config
-        return listOf(config.loginPath, config.refreshTokenPath)
-    }
+val TokenRefresherPlugin = createClientPlugin("OAuth2.0 Token Refresher", ::TokenRefresherPluginConfig) {
+    val refreshTokenClientProvider = pluginConfig.refreshTokenClientProvider ?: return@createClientPlugin
+    val tokensManager = pluginConfig.providerTokenManager?.getTokensManager(refreshTokenClientProvider.getRefreshTokenClient(client)) ?: return@createClientPlugin
 
     onRequest { request, _ ->
-        val ignorePaths = ignorePaths()
+        val ignorePaths = tokensManager.ignoredPathsForTokenRefresh()
         if (ignorePaths.contains(request.url.fragment)) return@onRequest
         val accessToken = tokensManager.getActualAccessTokenOrNull()
         if (accessToken == null || accessToken == "") return@onRequest
@@ -24,7 +18,7 @@ val TokenRefresherPlugin = createClientPlugin("OAuth2.0 Token Refresher") {
     on(Send) { request ->
         val originalCall = proceed(request)
         originalCall.response.run {
-            val ignorePaths = ignorePaths()
+            val ignorePaths = tokensManager.ignoredPathsForTokenRefresh()
             if (ignorePaths.contains(request.url.fragment)) return@run originalCall
 
             if (status != HttpStatusCode.Unauthorized) return@run originalCall
@@ -38,3 +32,4 @@ val TokenRefresherPlugin = createClientPlugin("OAuth2.0 Token Refresher") {
         }
     }
 }
+

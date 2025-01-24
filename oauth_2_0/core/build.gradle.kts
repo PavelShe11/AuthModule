@@ -5,7 +5,7 @@ plugins {
     id("convention.publication")
 }
 
-group = property("group").toString() + ".core"
+group = property("group_oauth_2_0").toString() + ".core"
 
 kotlin {
     jvmToolchain(11)
@@ -43,7 +43,7 @@ kotlin {
 }
 
 android {
-    namespace = property("group").toString() + ".core"
+    namespace = property("group_oauth_2_0").toString() + ".core"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
