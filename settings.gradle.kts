@@ -39,3 +39,5 @@ include(":core")
 include(":oauth_2_0:core")
 include(":oauth_2_0:impl")
 include(":oauth_2_0:ktor")
+
+include(":sampleApp")

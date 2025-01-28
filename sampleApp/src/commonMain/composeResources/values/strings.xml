@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">StudBridge</string>
+    <string name="login_screen_title">Номер телефона</string>
+    <string name="login_screen_subtitle">Проверьте код страны и введите свой номер телефона.</string>
+    <string name="login_screen_country_label_text_field">Страна</string>
+    <string name="login_screen_phone_number_label_text_field">Номер телефона</string>
+    <string name="login_screen_button_text">Подтвердить телефон</string>
+</resources>
