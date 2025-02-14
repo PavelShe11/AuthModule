@@ -41,3 +41,4 @@ include(":oauth_2_0:impl")
 include(":oauth_2_0:ktor")
 
 include(":sampleApp")
+include(":sampleApp:uikit")

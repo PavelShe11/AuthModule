@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.compose.multiplatform)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.kotlinx.serialization)
     alias(libs.plugins.ksp)
 }
 
@@ -23,7 +24,7 @@ kotlin {
         iosSimulatorArm64()
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
-            baseName = "Sample"
+            baseName = "SampleApp"
             isStatic = true
         }
     }
@@ -35,9 +36,11 @@ kotlin {
             implementation(project(":oauth_2_0:impl"))
             implementation(project(":oauth_2_0:ktor"))
 
+            implementation(project(":sampleApp:uikit"))
+
             implementation(compose.runtime)
             implementation(compose.foundation)
-            implementation(compose.material)
+            implementation(compose.material3)
             implementation(compose.ui)
             implementation(compose.components.resources)
             implementation(compose.components.uiToolingPreview)
@@ -59,7 +62,8 @@ kotlin {
             implementation(libs.mvikotlin.logging)
             implementation(libs.mvikotlin.extensions.coroutines)
 
-            implementation(libs.haze)
+            implementation(libs.decompose)
+            implementation(libs.decompose.compose)
         }
 
         val desktopMain by getting

@@ -1,8 +1,16 @@
 <resources>
-    <string name="app_name">StudBridge</string>
-    <string name="login_screen_title">Номер телефона</string>
-    <string name="login_screen_subtitle">Проверьте код страны и введите свой номер телефона.</string>
-    <string name="login_screen_country_label_text_field">Страна</string>
-    <string name="login_screen_phone_number_label_text_field">Номер телефона</string>
-    <string name="login_screen_button_text">Подтвердить телефон</string>
+    <string name="enter_email_screen_title">Электронная почта</string>
+    <string name="enter_email_screen_subtitle">Введите адрес электронной почты, к которой имеет доступ, и затем подтвердите его</string>
+    <string name="enter_email_screen_email_textfield_label">Email</string>
+    <string name="enter_email_screen_email_textfield_placeholder">ee.example@mail.ru</string>
+    <string name="enter_email_screen_confirm_email_button">Подтвердить Email</string>
+
+    <string name="enter_confirm_email_screen_title">Подтверждение почты</string>
+    <string name="enter_confirm_email_screen_subtitle">Введите код подтверждения, который пришёл к Вам на почту</string>
+    <string name="enter_confirm_email_screen_confirmed_email_textfield_label">Код подтверждения</string>
+    <string name="enter_confirm_email_screen_confirmed_email_textfield_placeholder">1234</string>
+    <string name="enter_confirm_email_screen_confirmed_email_button">Подтвердить</string>
+
+    <string name="login_screen_title">Добро пожаловать в StudBridge</string>
+    <string name="login_screen_subtitle">Студенческое сообщество, где знания встречаются с возможностями, а идеи превращаются в результаты.</string>
 </resources>
