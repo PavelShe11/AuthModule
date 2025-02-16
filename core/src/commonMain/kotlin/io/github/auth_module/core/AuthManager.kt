@@ -1,14 +1,7 @@
 package io.github.auth_module.core
 
-import io.github.auth_module.core.exception.LoginException
-import io.github.auth_module.core.exception.LogoutException
-import io.github.auth_module.core.exception.SomethingWentWrongException
-import kotlin.coroutines.cancellation.CancellationException
+import io.github.auth_module.core.useCases.GetAuthStatusUseCase
+import io.github.auth_module.core.useCases.LoginUseCase
+import io.github.auth_module.core.useCases.LogoutUseCase
 
-interface AuthManager<LoginData> {
-    @Throws(SomethingWentWrongException::class, LoginException::class, CancellationException::class)
-    suspend fun login(data: LoginData)
-
-    @Throws(SomethingWentWrongException::class, LogoutException::class, CancellationException::class)
-    suspend fun logout()
-}
+interface AuthManager<LoginData>: LoginUseCase<LoginData>, LogoutUseCase, GetAuthStatusUseCase

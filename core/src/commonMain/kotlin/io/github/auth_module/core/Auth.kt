@@ -1,7 +1,7 @@
 package io.github.auth_module.core
 
-class Auth<EngineConfig, LoginData, LoginResponse, LogoutResponse, AuthClient: IAuthClient<LoginData, LoginResponse, LogoutResponse>>(
-    val engine: IAuthEngine<EngineConfig, LoginData, LoginResponse, LogoutResponse, AuthClient>
+class Auth<EngineConfig, LoginData, LoginResponse, LogoutResponse, AuthClient: io.github.auth_module.core.AuthClient<LoginData, LoginResponse, LogoutResponse>>(
+    val engine: AuthEngine<EngineConfig, LoginData, LoginResponse, LogoutResponse, AuthClient>
 ) {
 
     fun init(

@@ -1,6 +1,6 @@
 package io.github.auth_module.core
 
-interface IAuthEngine <EngineConfig, LoginData, LoginResponse, LogoutResponse, AuthClient: IAuthClient<LoginData, LoginResponse, LogoutResponse>> {
+interface AuthEngine <EngineConfig, LoginData, LoginResponse, LogoutResponse, AuthClient: io.github.auth_module.core.AuthClient<LoginData, LoginResponse, LogoutResponse>> {
     var config: EngineConfig
 
     fun getAuthManager(
