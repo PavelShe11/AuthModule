@@ -2,8 +2,8 @@ package io.github.pavelshe11.auth_module.sampleApp.feature.auth.screen.confirmEm
 
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.value.operator.map
+import io.github.pavelshe11.auth_module.sampleApp.common.utils.asValue
 import io.github.pavelshe11.auth_module.sampleApp.feature.auth.authStore.AuthStore
-import io.github.pavelshe11.auth_module.sampleApp.utils.asValue
 
 class DefaultConfirmEmailComponent(
     context: ComponentContext,
