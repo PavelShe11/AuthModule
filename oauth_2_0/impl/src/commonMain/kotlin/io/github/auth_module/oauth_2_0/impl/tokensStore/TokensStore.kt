@@ -7,7 +7,7 @@ import kotlinx.coroutines.IO
 import kotlinx.coroutines.withContext
 
 internal class TokensStore(
-    private val config: TokenStoreConfig
+    config: TokenStoreConfig
 ) {
 
     private val store: KStore<TokensData> = config.factoryTokenStore.create()

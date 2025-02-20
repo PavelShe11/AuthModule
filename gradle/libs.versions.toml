@@ -18,6 +18,7 @@ kermit = "2.0.5"
 ktor = "3.0.1"
 kstore = "0.9.1"
 jetbrains-kotlin-jvm = "2.1.0"
+lifecycleCoroutines = "2.4.0"
 mvikotlin = "4.3.0"
 core-ktx = "1.15.0"
 junit = "4.13.2"
@@ -73,6 +74,7 @@ junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junit-version" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+essenty-lifecycle-coroutines = { module = "com.arkivanov.essenty:lifecycle-coroutines", version.ref = "lifecycleCoroutines" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-material3-android = { group = "androidx.compose.material3", name = "material3-android", version.ref = "material3Android" }
 mvikotlin = { module = "com.arkivanov.mvikotlin:mvikotlin", version.ref = "mvikotlin" }

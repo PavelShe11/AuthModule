@@ -10,6 +10,8 @@ import io.github.auth_module.oauth_2_0.core.exception.RefreshTokenException
 import io.github.auth_module.oauth_2_0.core.oauth2Client.OAuth2Client
 import io.github.auth_module.oauth_2_0.core.oauth2Client.data.RefreshTokenData
 import io.github.auth_module.oauth_2_0.impl.tokensStore.TokensStore
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import kotlinx.datetime.Clock
 
 internal class OAuth2Manager<LoginData>(
@@ -18,7 +20,7 @@ internal class OAuth2Manager<LoginData>(
     private val networkRequestCanceller: NetworkRequestCanceller
 ) : AuthManager<LoginData> {
 
-    override suspend fun login(data: LoginData) {
+    override suspend fun login(data: LoginData) = withContext(Dispatchers.Default) {
         try {
             val result = authClient.login(data)
             tokensStore.save(tokensResponseToTokensData(result))
@@ -27,24 +29,24 @@ internal class OAuth2Manager<LoginData>(
         }
     }
 
-    override suspend fun logout() {
+    override suspend fun logout() = withContext(Dispatchers.Default) {
         networkRequestCanceller.cancel()
         tokensStore.reset()
     }
 
-    override suspend fun getStatus(): GetAuthStatusUseCase.AuthStatus {
-        val tokens = tokensStore.get() ?: return NotAuthorized
+    override suspend fun getStatus(): GetAuthStatusUseCase.AuthStatus = withContext(Dispatchers.Default) {
+        val tokens = tokensStore.get() ?: return@withContext NotAuthorized
 
         val expired = tokens.refreshTokenExpired
         val currentTime = Clock.System.now().epochSeconds
         if (currentTime > expired) {
-            return NotAuthorized
+            return@withContext NotAuthorized
         }
 
         try {
             authClient.refreshToken(RefreshTokenData(tokens.refreshToken))
         } catch (e: NetworkException) {
-            return Authorized
+            return@withContext Authorized
         } catch (e: RefreshTokenException) {
             when (e) {
                 is RefreshTokenException.Expired,
@@ -53,7 +55,7 @@ internal class OAuth2Manager<LoginData>(
             }
         }
 
-        return AuthorizationIsConfirm
+        return@withContext AuthorizationIsConfirm
     }
 
 

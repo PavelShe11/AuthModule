@@ -1,15 +1,16 @@
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
-    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.library)
     alias(libs.plugins.compose.multiplatform)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlinx.serialization)
     alias(libs.plugins.ksp)
 }
+
+group = "io.github.pavelshe11.auth_module.sampleApp.umbrella"
+version = "0.1"
 
 ksp {
     arg("KOIN_CONFIG_CHECK", "true")
@@ -28,7 +29,7 @@ kotlin {
         iosSimulatorArm64()
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
-            baseName = "SampleApp"
+            baseName = "SampleApp.Umbrella"
             isStatic = true
         }
     }
@@ -40,6 +41,8 @@ kotlin {
             //Project dependencies
             implementation(project(":oauth_2_0:impl"))
             implementation(project(":oauth_2_0:ktor"))
+
+            implementation(project(":sampleApp:feature:auth"))
 
             implementation(project(":sampleApp:uikit"))
 
@@ -108,65 +111,16 @@ kotlin {
     }
 }
 
-dependencies {
-    add("kspCommonMainMetadata", libs.koin.ksp.compiler)
-
-    add("kspAndroid", libs.koin.ksp.compiler)
-
-    add("kspIosX64", libs.koin.ksp.compiler)
-    add("kspIosArm64", libs.koin.ksp.compiler)
-    add("kspIosSimulatorArm64", libs.koin.ksp.compiler)
-
-    add("kspDesktop", libs.koin.ksp.compiler)
-}
-
-project.tasks.withType(KotlinCompilationTask::class.java).configureEach {
-    if (name != "kspCommonMainKotlinMetadata") {
-        dependsOn("kspCommonMainKotlinMetadata")
-    }
-}
-
 android {
-    namespace = property("group").toString() + ".sample"
+    namespace = "io.github.pavelshe11.auth_module.sampleApp.umbrella"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = property("group").toString() + ".sample"
         minSdk = libs.versions.android.minSdk.get().toInt()
-        targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 1
-        versionName = "1.0"
-    }
-    packaging {
-        resources {
-            excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
-    buildTypes {
-        getByName("release") {
-            isMinifyEnabled = false
-        }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
     }
 }
 
-compose {
-    resources {
-        publicResClass = false
-        generateResClass = always
-    }
-    desktop {
-        application {
-            mainClass = property("group").toString() + ".sample.MainKt"
-
-            nativeDistributions {
-                targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-                packageName = property("group").toString() + ".sample"
-                packageVersion = "1.0.0"
-            }
-        }
-    }
+compose.resources {
+    publicResClass = false
+    generateResClass = always
 }

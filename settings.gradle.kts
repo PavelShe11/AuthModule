@@ -40,5 +40,12 @@ include(":oauth_2_0:core")
 include(":oauth_2_0:impl")
 include(":oauth_2_0:ktor")
 
-include(":sampleApp")
+//include(":sampleApp")
+
 include(":sampleApp:uikit")
+
+include("sampleApp:feature:auth")
+
+include("sampleApp:common")
+
+include("sampleApp:umbrella")

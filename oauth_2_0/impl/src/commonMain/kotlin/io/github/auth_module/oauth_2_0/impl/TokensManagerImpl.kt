@@ -9,7 +9,6 @@ import io.github.auth_module.oauth_2_0.core.oauth2Client.data.RefreshTokenData
 import io.github.auth_module.oauth_2_0.core.tokensStore.TokensData
 import io.github.auth_module.oauth_2_0.impl.tokensStore.TokensStore
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
@@ -47,7 +46,7 @@ internal class TokensManagerImpl(
         }
     }
 
-    override suspend fun refreshToken() {
+    override suspend fun refreshToken() = withContext(Dispatchers.Default) {
         lock.withLock {
             updateTokens()
         }
@@ -57,7 +56,7 @@ internal class TokensManagerImpl(
         RefreshTokenException::class,
         CancellationException::class
     )
-    private suspend fun updateTokens() = withContext(Dispatchers.IO) {
+    private suspend fun updateTokens() = withContext(Dispatchers.Default) {
         val tokensData = store.get() ?: throw RefreshTokenException.IsMissing()
 
         val expired = tokensData.refreshTokenExpired

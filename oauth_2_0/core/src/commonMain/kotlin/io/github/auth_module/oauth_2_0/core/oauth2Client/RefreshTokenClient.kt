@@ -7,7 +7,6 @@ import io.github.auth_module.oauth_2_0.core.oauth2Client.data.TokensResponse
 import kotlin.coroutines.cancellation.CancellationException
 
 interface RefreshTokenClient {
-    var authConfig: OAuth2ClientConfig
 
     @Throws(
         RefreshTokenException::class,
