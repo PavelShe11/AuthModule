@@ -12,7 +12,7 @@ import org.koin.core.annotation.Module
 
 @Module
 @ComponentScan
-class AuthDiModule {
+class AuthDIModule {
 
     @Factory
     fun authStore(

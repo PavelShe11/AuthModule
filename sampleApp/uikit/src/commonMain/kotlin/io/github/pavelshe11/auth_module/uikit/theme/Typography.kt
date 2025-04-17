@@ -6,10 +6,10 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import io.github.pavelshe11.auth_module.uikit.uikit.generated.resources.Res
-import io.github.pavelshe11.auth_module.uikit.uikit.generated.resources.inter
-import io.github.pavelshe11.auth_module.uikit.uikit.generated.resources.inter_bold
-import io.github.pavelshe11.auth_module.uikit.uikit.generated.resources.inter_medium
+import io.github.pavelshe11.auth_module.sampleapp.uikit.uikit.generated.resources.Res
+import io.github.pavelshe11.auth_module.sampleapp.uikit.uikit.generated.resources.inter
+import io.github.pavelshe11.auth_module.sampleapp.uikit.uikit.generated.resources.inter_bold
+import io.github.pavelshe11.auth_module.sampleapp.uikit.uikit.generated.resources.inter_medium
 import org.jetbrains.compose.resources.Font
 
 // Определение шрифта Inter

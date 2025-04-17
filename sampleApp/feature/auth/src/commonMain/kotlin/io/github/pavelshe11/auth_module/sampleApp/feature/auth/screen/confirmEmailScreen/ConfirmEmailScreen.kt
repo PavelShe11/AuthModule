@@ -5,7 +5,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import io.github.pavelshe11.auth_module.sampleApp.feature.auth.screen.LoginEnterLayout
-import io.github.pavelshe11.auth_module.sampleapp.feature.auth.auth.generated.resources.*
+import io.github.pavelshe11.auth_module.sampleapp.feature.auth.auth.generated.resources.Res
+import io.github.pavelshe11.auth_module.sampleapp.feature.auth.auth.generated.resources.enter_confirm_email_screen_confirmed_email_button
+import io.github.pavelshe11.auth_module.sampleapp.feature.auth.auth.generated.resources.enter_confirm_email_screen_confirmed_email_textfield_label
+import io.github.pavelshe11.auth_module.sampleapp.feature.auth.auth.generated.resources.enter_confirm_email_screen_confirmed_email_textfield_placeholder
+import io.github.pavelshe11.auth_module.sampleapp.feature.auth.auth.generated.resources.enter_confirm_email_screen_subtitle
+import io.github.pavelshe11.auth_module.sampleapp.feature.auth.auth.generated.resources.enter_confirm_email_screen_title
 import org.jetbrains.compose.resources.stringResource
 
 @Composable

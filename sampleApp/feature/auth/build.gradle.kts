@@ -1,4 +1,4 @@
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
@@ -9,19 +9,21 @@ plugins {
     alias(libs.plugins.ksp)
 }
 
-group = "io.github.pavelshe11.auth_module.sampleApp.feature.auth"
-version = "0.1"
+val moduleBaseName = findProperty("path")
+    .toString()
+    .replace(":", ".")
+    .removePrefix(".")
+
+val moduleGroup = "${findProperty("group")}.$moduleBaseName"
+
+group = moduleGroup
 
 ksp {
     arg("KOIN_CONFIG_CHECK", "true")
 }
 
 kotlin {
-    androidTarget {
-        compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_11)
-        }
-    }
+    androidTarget()
 
     listOf(
         iosX64(),
@@ -29,18 +31,16 @@ kotlin {
         iosSimulatorArm64()
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
-            baseName = "SampleApp.Feature.Auth"
+            baseName = moduleBaseName
             isStatic = true
         }
     }
 
-    jvm("desktop")
-
     sourceSets {
         commonMain.dependencies {
             //Project dependencies
-            implementation(project(":oauth_2_0:impl"))
-            implementation(project(":oauth_2_0:ktor"))
+            api(project(":oauth_2_0:impl"))
+            api(project(":oauth_2_0:ktor"))
 
             implementation(project(":sampleApp:uikit"))
 
@@ -77,33 +77,6 @@ kotlin {
             //essenty
             implementation(libs.essenty.lifecycle.coroutines)
         }
-
-        val desktopMain by getting
-
-        androidMain.dependencies {
-            //Network (ktor)
-            implementation(libs.ktor.client.okhttp)
-
-            //Platform SDK + Jetpack
-            implementation(libs.androidx.ui)
-            implementation(libs.androidx.ui.tooling)
-            implementation(libs.androidx.activity.compose)
-            implementation(libs.androidx.foundation.layout.android)
-
-            //Di (koin)
-            implementation(libs.koin.android)
-
-            //coroutine
-            implementation(libs.kotlinx.coroutines.android)
-        }
-
-        desktopMain.dependencies {
-            //UI (compose)
-            implementation(compose.desktop.currentOs)
-
-            //coroutine
-            implementation(libs.kotlinx.coroutines.swing)
-        }
     }
 
     sourceSets.named("commonMain").configure {
@@ -111,16 +84,37 @@ kotlin {
     }
 }
 
+dependencies {
+    add("kspCommonMainMetadata", libs.koin.ksp.compiler)
+
+    add("kspAndroid", libs.koin.ksp.compiler)
+
+    add("kspIosX64", libs.koin.ksp.compiler)
+    add("kspIosArm64", libs.koin.ksp.compiler)
+    add("kspIosSimulatorArm64", libs.koin.ksp.compiler)
+}
+
 android {
-    namespace = "io.github.pavelshe11.auth_module.sampleApp.feature.auth"
+    namespace = moduleGroup
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
 }
 
 compose.resources {
     publicResClass = false
     generateResClass = always
+}
+
+project.tasks.withType(KotlinCompilationTask::class.java).configureEach {
+    if(name != "kspCommonMainKotlinMetadata") {
+        dependsOn("kspCommonMainKotlinMetadata")
+    }
 }

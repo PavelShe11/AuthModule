@@ -13,7 +13,6 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.unit.dp
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import io.github.pavelshe11.auth_module.sampleApp.feature.auth.screen.LoginEnterLayout
-import io.github.pavelshe11.auth_module.sampleapp.feature.auth.auth.generated.resources.Res
 import io.github.pavelshe11.auth_module.sampleapp.feature.auth.auth.generated.resources.*
 import io.github.pavelshe11.auth_module.uikit.theme.textLinkStyles
 import org.jetbrains.compose.resources.stringResource

@@ -1,5 +1,4 @@
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
 plugins {
@@ -11,29 +10,31 @@ plugins {
     alias(libs.plugins.ksp)
 }
 
+val moduleBaseName = findProperty("path")
+    .toString()
+    .replace(":", ".")
+    .removePrefix(".")
+
+val moduleGroup = "${findProperty("group")}.$moduleBaseName"
+
+group = moduleGroup
+
 ksp {
     arg("KOIN_CONFIG_CHECK", "true")
 }
 
 kotlin {
-    androidTarget {
-        compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_11)
-        }
-    }
-
+    androidTarget()
     listOf(
         iosX64(),
         iosArm64(),
         iosSimulatorArm64()
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
-            baseName = "SampleApp"
+            baseName = moduleBaseName
             isStatic = true
         }
     }
-
-    jvm("desktop")
 
     sourceSets {
         commonMain.dependencies {
@@ -42,6 +43,7 @@ kotlin {
             implementation(project(":oauth_2_0:ktor"))
 
             implementation(project(":sampleApp:uikit"))
+            implementation(project(":sampleApp:umbrella"))
 
             //UI (compose)
             implementation(compose.runtime)
@@ -75,8 +77,6 @@ kotlin {
             implementation(libs.essenty.lifecycle.coroutines)
         }
 
-        val desktopMain by getting
-
         androidMain.dependencies {
             //Network (ktor)
             implementation(libs.ktor.client.okhttp)
@@ -93,14 +93,6 @@ kotlin {
             //coroutine
             implementation(libs.kotlinx.coroutines.android)
         }
-
-        desktopMain.dependencies {
-            //UI (compose)
-            implementation(compose.desktop.currentOs)
-
-            //coroutine
-            implementation(libs.kotlinx.coroutines.swing)
-        }
     }
 
     sourceSets.named("commonMain").configure {
@@ -116,8 +108,6 @@ dependencies {
     add("kspIosX64", libs.koin.ksp.compiler)
     add("kspIosArm64", libs.koin.ksp.compiler)
     add("kspIosSimulatorArm64", libs.koin.ksp.compiler)
-
-    add("kspDesktop", libs.koin.ksp.compiler)
 }
 
 project.tasks.withType(KotlinCompilationTask::class.java).configureEach {
@@ -127,7 +117,7 @@ project.tasks.withType(KotlinCompilationTask::class.java).configureEach {
 }
 
 android {
-    namespace = property("group").toString() + ".sample"
+    namespace = moduleGroup
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
@@ -137,19 +127,22 @@ android {
         versionCode = 1
         versionName = "1.0"
     }
+
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
         }
     }
+
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
 }
 
@@ -158,15 +151,10 @@ compose {
         publicResClass = false
         generateResClass = always
     }
-    desktop {
-        application {
-            mainClass = property("group").toString() + ".sample.MainKt"
+}
 
-            nativeDistributions {
-                targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-                packageName = property("group").toString() + ".sample"
-                packageVersion = "1.0.0"
-            }
-        }
+project.tasks.withType(KotlinCompilationTask::class.java).configureEach {
+    if(name != "kspCommonMainKotlinMetadata") {
+        dependsOn("kspCommonMainKotlinMetadata")
     }
 }

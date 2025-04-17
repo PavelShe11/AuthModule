@@ -8,5 +8,5 @@ repositories {
 
 dependencies {
     //noinspection UseTomlInstead
-    implementation("com.vanniktech:gradle-maven-publish-plugin:0.30.0")
+    implementation("com.vanniktech:gradle-maven-publish-plugin:0.31.0")
 }

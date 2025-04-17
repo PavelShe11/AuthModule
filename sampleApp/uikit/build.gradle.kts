@@ -5,28 +5,28 @@ plugins {
     alias(libs.plugins.compose.compiler)
 }
 
-group = property("group").toString() + ".uikit"
+val moduleBaseName = findProperty("path")
+    .toString()
+    .replace(":", ".")
+    .removePrefix(".")
+
+val moduleGroup = "${findProperty("group")}.$moduleBaseName"
+
+group = moduleGroup
 
 kotlin {
-
-    jvmToolchain(11)
-    androidTarget {
-        publishLibraryVariants("release")
-        withSourcesJar(publish = true)
-    }
+    androidTarget()
 
     listOf(
         iosX64(),
         iosArm64(),
         iosSimulatorArm64()
-    ).forEach {
-        it.binaries.framework {
-            baseName = "uikit"
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
+            baseName = moduleBaseName
             isStatic = true
         }
     }
-
-    jvm("desktop")
 
     sourceSets {
         commonMain.dependencies {
@@ -35,20 +35,6 @@ kotlin {
             implementation(compose.material3)
             implementation(compose.ui)
             implementation(compose.components.resources)
-            implementation(compose.components.uiToolingPreview)
-        }
-
-        val desktopMain by getting
-
-        androidMain.dependencies {
-            implementation(libs.androidx.ui)
-            implementation(libs.androidx.ui.tooling)
-            implementation(libs.androidx.activity.compose)
-            implementation(libs.androidx.foundation.layout.android)
-        }
-
-        desktopMain.dependencies {
-            implementation(compose.desktop.currentOs)
         }
     }
 
@@ -60,11 +46,16 @@ kotlin {
 }
 
 android {
-    namespace = property("group").toString() + ".uikit"
+    namespace = moduleGroup
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
 }
 

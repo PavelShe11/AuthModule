@@ -5,16 +5,17 @@ plugins {
     id("convention.publication")
 }
 
-group = property("group").toString() + ".core"
+val moduleBaseName = findProperty("path")
+    .toString()
+    .replace(":", ".")
+    .removePrefix(".")
+
+val moduleGroup = "${findProperty("group")}.$moduleBaseName"
+
+group = moduleGroup
 
 kotlin {
-    jvmToolchain(11)
-    androidTarget {
-        publishLibraryVariants("release")
-        withSourcesJar(publish = true)
-    }
-
-    jvm()
+    androidTarget()
 
     listOf(
         iosX64(),
@@ -22,7 +23,7 @@ kotlin {
         iosSimulatorArm64()
     ).forEach {
         it.binaries.framework {
-            baseName = "core"
+            baseName = moduleBaseName
             isStatic = true
         }
     }
@@ -35,10 +36,15 @@ kotlin {
 }
 
 android {
-    namespace = property("group").toString() + ".core"
+    namespace = moduleGroup
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
 }
