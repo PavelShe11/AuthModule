@@ -17,8 +17,6 @@ val moduleBaseName = findProperty("path")
 
 val moduleGroup = "${findProperty("group")}.$moduleBaseName"
 
-group = moduleGroup
-
 ksp {
     arg("KOIN_CONFIG_CHECK", "true")
 }
@@ -33,6 +31,13 @@ kotlin {
         iosTarget.binaries.framework {
             baseName = moduleBaseName
             isStatic = true
+
+            export(libs.decompose)
+
+            export(libs.essenty.lifecycle)
+            export(libs.essenty.stateKeeper)
+
+            export(libs.koin.core)
         }
     }
 
@@ -42,6 +47,7 @@ kotlin {
             implementation(project(":oauth_2_0:impl"))
             implementation(project(":oauth_2_0:ktor"))
 
+            implementation(project(":sampleApp:common"))
             implementation(project(":sampleApp:uikit"))
             implementation(project(":sampleApp:umbrella"))
 
@@ -59,9 +65,9 @@ kotlin {
 
             //DI (koin)
             implementation(project.dependencies.platform(libs.koin.bom))
-            implementation(libs.koin.core)
+            api(libs.koin.core)
             implementation(project.dependencies.platform(libs.koin.annotations.bom))
-            api(libs.koin.annotations)
+            implementation(libs.koin.annotations)
 
             //mvikotlin
             implementation(libs.mvikotlin)
@@ -70,11 +76,13 @@ kotlin {
             implementation(libs.mvikotlin.extensions.coroutines)
 
             //Navigation (decompose)
-            implementation(libs.decompose)
+            api(libs.decompose)
             implementation(libs.decompose.compose)
 
             //essenty
             implementation(libs.essenty.lifecycle.coroutines)
+            api(libs.essenty.lifecycle)
+            api(libs.essenty.stateKeeper)
         }
 
         androidMain.dependencies {
@@ -154,7 +162,7 @@ compose {
 }
 
 project.tasks.withType(KotlinCompilationTask::class.java).configureEach {
-    if(name != "kspCommonMainKotlinMetadata") {
+    if (name != "kspCommonMainKotlinMetadata") {
         dependsOn("kspCommonMainKotlinMetadata")
     }
 }

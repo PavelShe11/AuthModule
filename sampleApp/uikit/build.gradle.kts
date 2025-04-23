@@ -12,8 +12,6 @@ val moduleBaseName = findProperty("path")
 
 val moduleGroup = "${findProperty("group")}.$moduleBaseName"
 
-group = moduleGroup
-
 kotlin {
     androidTarget()
 

@@ -16,8 +16,6 @@ val moduleBaseName = findProperty("path")
 
 val moduleGroup = "${findProperty("group")}.$moduleBaseName"
 
-group = moduleGroup
-
 ksp {
     arg("KOIN_CONFIG_CHECK", "true")
 }
@@ -42,9 +40,9 @@ kotlin {
             api(project(":oauth_2_0:impl"))
             api(project(":oauth_2_0:ktor"))
 
-            implementation(project(":sampleApp:uikit"))
-
             implementation(project(":sampleApp:common"))
+
+            implementation(project(":sampleApp:uikit"))
 
             //UI (compose)
             implementation(compose.runtime)
@@ -76,6 +74,10 @@ kotlin {
 
             //essenty
             implementation(libs.essenty.lifecycle.coroutines)
+        }
+
+        androidMain.dependencies {
+            implementation(libs.androidx.ui.tooling)
         }
     }
 

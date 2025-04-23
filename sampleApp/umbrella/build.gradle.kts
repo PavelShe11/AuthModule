@@ -16,8 +16,6 @@ val moduleBaseName = findProperty("path")
 
 val moduleGroup = "${findProperty("group")}.$moduleBaseName"
 
-group = moduleGroup
-
 ksp {
     arg("KOIN_CONFIG_CHECK", "true")
 }
@@ -39,8 +37,10 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             //Project dependencies
-//            implementation(project(":sampleApp:feature:auth"))
-//
+            implementation(project(":sampleApp:common"))
+
+            implementation(project(":sampleApp:feature:auth"))
+
             implementation(project(":sampleApp:uikit"))
 
             //UI (compose)
