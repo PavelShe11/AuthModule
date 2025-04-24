@@ -21,7 +21,7 @@ plugins {
 dependencyResolutionManagement {
     repositories {
         google {
-            content { 
+            content {
               	includeGroupByRegex("com\\.android.*")
               	includeGroupByRegex("com\\.google.*")
               	includeGroupByRegex("androidx.*")
@@ -32,20 +32,21 @@ dependencyResolutionManagement {
     }
 }
 
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 includeBuild("convention-plugins")
 
-include(":core")
+include(":uikit")
+include(":common")
 
-include(":oauth_2_0:core")
-include(":oauth_2_0:impl")
-include(":oauth_2_0:ktor")
+include(":mechanismAuth:core")
+include(":mechanismAuth:oauth_2_0:core")
+include(":mechanismAuth:oauth_2_0:impl")
+include(":mechanismAuth:oauth_2_0:ktor")
 
-//include(":sampleApp")
+include(":featureAuth:core")
+include(":featureAuth:presentation")
+include(":featureAuth:ui")
 
-include(":sampleApp:uikit")
-
-include("sampleApp:feature:auth")
-
-include("sampleApp:common")
-
-include("sampleApp:umbrella")
+include(":sampleApp:umbrella")
+include(":sampleApp:androidApp")

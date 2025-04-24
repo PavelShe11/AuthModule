@@ -6,11 +6,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import com.arkivanov.decompose.extensions.compose.stack.Children
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
-import io.github.pavelshe11.auth_module.sampleApp.feature.auth.screen.authScreen.AuthUI
-import io.github.pavelshe11.auth_module.sampleApp.uikit.theme.StudBridgeTheme
+import io.github.pavelshe11.auth_module.featureAuth.ui.screen.AuthUI
 import io.github.pavelshe11.auth_module.sampleApp.umbrella.root.RootComponent.Child
 import io.github.pavelshe11.auth_module.sampleApp.umbrella.screen.SplashScreen.SplashScreen
 import io.github.pavelshe11.auth_module.sampleApp.umbrella.screen.mainScreen.MainScreen
+import io.github.pavelshe11.auth_module.uikit.theme.StudBridgeTheme
 
 @Composable
 fun RootUI(component: RootComponent) {

@@ -31,17 +31,23 @@ kotlin {
         iosTarget.binaries.framework {
             baseName = moduleBaseName
             isStatic = true
+
+            export(libs.decompose)
+
+            export(libs.essenty.lifecycle)
+            export(libs.essenty.stateKeeper)
+
+            export(libs.koin.core)
         }
     }
 
     sourceSets {
         commonMain.dependencies {
             //Project dependencies
-            implementation(project(":sampleApp:common"))
+            api(projects.common)
+            api(projects.uikit)
 
-            implementation(project(":sampleApp:feature:auth"))
-
-            implementation(project(":sampleApp:uikit"))
+            implementation(projects.featureAuth.ui)
 
             //UI (compose)
             implementation(compose.runtime)
@@ -57,7 +63,7 @@ kotlin {
 
             //DI (koin)
             implementation(project.dependencies.platform(libs.koin.bom))
-            implementation(libs.koin.core)
+            api(libs.koin.core)
             implementation(project.dependencies.platform(libs.koin.annotations.bom))
             api(libs.koin.annotations)
 
@@ -68,11 +74,13 @@ kotlin {
             implementation(libs.mvikotlin.extensions.coroutines)
 
             //Navigation (decompose)
-            implementation(libs.decompose)
+            api(libs.decompose)
             implementation(libs.decompose.compose)
 
             //essenty
             implementation(libs.essenty.lifecycle.coroutines)
+            api(libs.essenty.lifecycle)
+            api(libs.essenty.stateKeeper)
         }
     }
 

@@ -5,8 +5,8 @@ import com.arkivanov.decompose.router.stack.StackNavigation
 import com.arkivanov.decompose.router.stack.childStack
 import com.arkivanov.decompose.router.stack.replaceAll
 import com.arkivanov.essenty.lifecycle.coroutines.coroutineScope
+import io.github.pavelshe11.auth_module.featureAuth.presentation.authScreen.AuthComponent
 import io.github.pavelshe11.auth_module.sampleApp.common.utils.koin.OnlyUI
-import io.github.pavelshe11.auth_module.sampleApp.feature.auth.screen.authScreen.AuthComponent
 import io.github.pavelshe11.auth_module.sampleApp.umbrella.root.RootComponent.Child
 import io.github.pavelshe11.auth_module.sampleApp.umbrella.root.RootComponent.Config
 import io.github.pavelshe11.auth_module.sampleApp.umbrella.screen.SplashScreen.SplashComponent

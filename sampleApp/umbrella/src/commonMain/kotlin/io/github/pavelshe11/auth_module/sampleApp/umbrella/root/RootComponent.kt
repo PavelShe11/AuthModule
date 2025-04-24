@@ -3,7 +3,7 @@ package io.github.pavelshe11.auth_module.sampleApp.umbrella.root
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.stack.ChildStack
 import com.arkivanov.decompose.value.Value
-import io.github.pavelshe11.auth_module.sampleApp.feature.auth.screen.authScreen.AuthComponent
+import io.github.pavelshe11.auth_module.featureAuth.presentation.authScreen.AuthComponent
 import io.github.pavelshe11.auth_module.sampleApp.umbrella.screen.SplashScreen.SplashComponent
 import io.github.pavelshe11.auth_module.sampleApp.umbrella.screen.mainScreen.MainComponent
 import kotlinx.serialization.Serializable
